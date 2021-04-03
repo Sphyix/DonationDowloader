@@ -9,4 +9,10 @@
     <PackageReference Include="NLog.Config" Version="4.7.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="config.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

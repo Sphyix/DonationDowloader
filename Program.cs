@@ -20,7 +20,8 @@ namespace DonationDowloader
                     bool failedToWrite = false;
                     bool failedToReadCurrent = false;
 
-                    string inPath = @"C:\Users\admin\Downloads\autosave.html";
+                    string[] config = File.ReadAllLines(@"config.txt");
+                    string inPath = config?[0];
                     if (File.Exists(inPath))
                     {
                         string[] lines = new string[0];
@@ -37,11 +38,13 @@ namespace DonationDowloader
                             logger.Error(DateTime.Now + " Failed to Read");
                             Console.WriteLine(DateTime.Now + " Failed to Read");
                         }
+
                         foreach (var line in lines)
                         {
                             if (line.Contains("https://cravatar.eu/helmavatar/"))
                             {
                                 string rx = @"helmavatar/(?<name>.*)/([0-9])";
+
                                 var newNames = Regex.Matches(line, rx)
                                                 .OfType<Match>()
                                                 .Select(m => m.Groups["name"].Value)
@@ -97,8 +100,8 @@ namespace DonationDowloader
                                 File.Delete(inPath);
                         }
                         catch { }
-                        Thread.Sleep(2000);
                     }
+                    Thread.Sleep(30000);
                 }
             }
             finally
